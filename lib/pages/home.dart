@@ -9,29 +9,38 @@ class ToDOPage extends StatefulWidget {
 }
 
 class _ToDOPageState extends State<ToDOPage> {
+  // list of todos
+  List toDoList = [
+    ["Figma Design", false],
+    ["Go for a walk", false]
+  ];
+
+  // checkbox if was clicked
+  void checkBoxChanged(bool? value, int index) {
+    setState(() {
+      toDoList[index][1] = !toDoList[index][1];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.blue[400],
       appBar: AppBar(
         backgroundColor: Colors.blue[300],
-        title: const Center(
-           child:Text("TO DO APP")
-          ),
-          elevation: 0,
+        title: const Center(child: Text("TO DO APP")),
+        elevation: 0,
       ),
-      body: ListView(
-        children: [
-           ToDoCard(
-            taskName: "figma design",
-            taskCompleted: true,
-            onChanged: (p0) {
-              
-            },
-           ),
-        ],
+      body: ListView.builder(
+        itemCount: toDoList.length,
+        itemBuilder: (context, index) {
+          return ToDoCard(
+            taskName: toDoList[index][0],
+            taskCompleted: toDoList[index][1],
+            onChanged: (value) => checkBoxChanged(value, index),
+          );
+        },
       ),
     );
-  
   }
 }
