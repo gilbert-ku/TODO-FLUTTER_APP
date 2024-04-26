@@ -34,12 +34,15 @@ class ToDoCard extends StatelessWidget {
             // text
             Text(
               taskName,
+              
               style: TextStyle(
                 // condition to check complete task
                 decoration: taskCompleted 
                 ? TextDecoration.lineThrough 
                 : TextDecoration.none,
-            ),
+                color: Colors.white,
+                fontSize: 17
+              ),
             ),
           ],
         ),
