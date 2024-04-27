@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toda_app/util/dialog_card.dart';
 import 'package:toda_app/util/to_do.dart';
 
+
 class ToDOPage extends StatefulWidget {
   const ToDOPage({super.key});
 
@@ -10,6 +11,10 @@ class ToDOPage extends StatefulWidget {
 }
 
 class _ToDOPageState extends State<ToDOPage> {
+  // text controller
+
+  final _controller = TextEditingController();
+
   // list of todos
   List toDoList = [
     ["Figma Design", false],
@@ -23,13 +28,28 @@ class _ToDOPageState extends State<ToDOPage> {
     });
   }
 
+  // save new task
+
+  void saveNewTask() {
+    setState(() {
+      toDoList.add(
+        [_controller.text, false]
+      );
+    });
+    Navigator.of(context).pop();
+  }
+
   // create new task
 
   void createNewTask() {
     showDialog(
       context: context,
       builder: (context) {
-        return const DialogCard();
+        return DialogCard(
+          controller: _controller,
+          onSave: saveNewTask,
+          onCancel: () => Navigator.of(context).pop(),
+        );
       },
     );
   }
@@ -50,13 +70,13 @@ class _ToDOPageState extends State<ToDOPage> {
       body: ListView.builder(
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
-
           // build the list from todo list
           return ToDoCard(
-            taskName: toDoList[index][0],
-            taskCompleted: toDoList[index][1],
-            onChanged: (value) => checkBoxChanged(value, index),
-          );
+          key: UniqueKey(), // If you need to uniquely identify each card
+          taskName: toDoList[index][0],
+          taskCompleted: toDoList[index][1],
+          onChanged: (value) => checkBoxChanged(value, index),
+        );
         },
       ),
     );

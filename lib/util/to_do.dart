@@ -7,13 +7,13 @@ class ToDoCard extends StatelessWidget {
   
 
 
-  const ToDoCard(
-    {super.key,
+   // ignore: use_super_parameters
+   const ToDoCard({
+    Key? key,
     required this.taskName,
     required this.taskCompleted,
-    required this.onChanged
-    }
-  );
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,6 @@ class ToDoCard extends StatelessWidget {
             // text
             Text(
               taskName,
-              
               style: TextStyle(
                 // condition to check complete task
                 decoration: taskCompleted 
