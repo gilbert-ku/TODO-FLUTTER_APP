@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:toda_app/util/dialog_card.dart';
 import 'package:toda_app/util/to_do.dart';
 
-
 class ToDOPage extends StatefulWidget {
   const ToDOPage({super.key});
 
@@ -32,9 +31,8 @@ class _ToDOPageState extends State<ToDOPage> {
 
   void saveNewTask() {
     setState(() {
-      toDoList.add(
-        [_controller.text, false]
-      );
+      toDoList.add([_controller.text, false]);
+      _controller.clear();
     });
     Navigator.of(context).pop();
   }
@@ -72,11 +70,11 @@ class _ToDOPageState extends State<ToDOPage> {
         itemBuilder: (context, index) {
           // build the list from todo list
           return ToDoCard(
-          key: UniqueKey(), // If you need to uniquely identify each card
-          taskName: toDoList[index][0],
-          taskCompleted: toDoList[index][1],
-          onChanged: (value) => checkBoxChanged(value, index),
-        );
+            key: UniqueKey(), // If you need to uniquely identify each card
+            taskName: toDoList[index][0],
+            taskCompleted: toDoList[index][1],
+            onChanged: (value) => checkBoxChanged(value, index),
+          );
         },
       ),
     );
